@@ -7,7 +7,6 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private float Xspeed;
     [SerializeField] private float Zspeed;
-    [SerializeField] private float distance;
 
     private float moveHorizontal;
     private float targetX;
@@ -30,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
         //if object is not sliding and button is pressed
         if (currentPos.x == targetX && direction != 0)
         {
+            var distance = Settings.GameConstants.PlayerSlideDistance;
             if (direction == 1 && targetX != distance) targetX += distance;
             if (direction == -1 && targetX != -distance) targetX -= distance;
         }
