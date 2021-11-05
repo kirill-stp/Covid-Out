@@ -7,8 +7,10 @@ public class GroundTile : MonoBehaviour
 
     private void OnTriggerExit (Collider other)
     {
-        OnAnyTileExit?.Invoke();
-        print("exit");
-        Destroy(gameObject, 1f);
+        if (other.CompareTag(Settings.Tags.Player))
+        {
+            OnAnyTileExit?.Invoke();
+            Destroy(gameObject, 1f);
+        }
     }
 }

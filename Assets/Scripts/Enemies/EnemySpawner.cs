@@ -63,24 +63,10 @@ public class EnemySpawner : MonoBehaviour
 
         return chosenEnemy;
     }
-
-    private void DeleteEnemiesBehind()
-    {
-        var enemies = FindObjectsOfType<EnemyMovement>();
-        foreach (var enemy in enemies)
-        {
-            if (enemy.transform.position.z - playerTransform.position.z < -5) Destroy(enemy.gameObject);
-        }
-    }
-
+    
     #endregion
 
     #region Unity Lifecycle
-
-    private void OnEnable()
-    {
-        GroundTile.OnAnyTileExit += DeleteEnemiesBehind;
-    }
 
     private void Update()
     {
@@ -90,11 +76,6 @@ public class EnemySpawner : MonoBehaviour
             currentTime = 0;
             SpawnEnemies();
         }
-    }
-
-    private void OnDisable()
-    {
-        GroundTile.OnAnyTileExit -= DeleteEnemiesBehind;
     }
 
     #endregion
