@@ -7,6 +7,17 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private float Xspeed;
     [SerializeField] private float Zspeed;
+    [Space]
+    [Header("Speed Waypoints")]
+    [SerializeField] private float speedWP1;
+    [SerializeField] private float speedWP2;
+    [Header("Speed change")]
+    [SerializeField] private float XSpeedChange1;
+    [SerializeField] private float XSpeedChange2;
+    [SerializeField] private float XSpeedChange3;
+    [SerializeField] private float ZSpeedChange1;
+    [SerializeField] private float ZSpeedChange2;
+    [SerializeField] private float ZSpeedChange3;
 
     private float moveHorizontal;
     private float targetX;
@@ -38,9 +49,33 @@ public class PlayerMovement : MonoBehaviour
         transform.position = Vector3.MoveTowards(currentPos, targetPos, Xspeed * Time.fixedDeltaTime);
     }
 
+    private void IncreaseSpeed()
+    {
+        if (Zspeed < speedWP1)
+        {
+            Zspeed += ZSpeedChange1;
+            Xspeed += XSpeedChange1;
+        } else if (speedWP1 <= Zspeed && Zspeed < speedWP2)
+        {
+            Zspeed += ZSpeedChange2;
+            Xspeed += XSpeedChange2;
+            
+        }
+        else
+        {
+            Zspeed += ZSpeedChange3;
+            Xspeed += XSpeedChange3;
+        }
+    }
+
     #endregion
 
     #region Unity Lifecycle
+
+    private void OnEnable()
+    {
+        GroundTile.OnAnyTileExit += IncreaseSpeed;
+    }
 
     void Update()
     {
@@ -51,6 +86,11 @@ public class PlayerMovement : MonoBehaviour
     {
         MoveTowards();
         Slide(Math.Sign(moveHorizontal));
+    }
+
+    private void OnDisable()
+    {
+        GroundTile.OnAnyTileExit -= IncreaseSpeed;
     }
 
     #endregion

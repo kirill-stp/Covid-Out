@@ -1,6 +1,5 @@
 using System.Linq;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -18,9 +17,9 @@ public class EnemySpawner : MonoBehaviour
 
     #endregion
 
-    #region Public Methods
+    #region Private Methods
 
-    public void SpawnEnemies()
+    private void SpawnEnemies()
     {
         int reservedLine = Random.Range(-1, 2);
         for (int i = -1; i < 2; i++)
@@ -32,10 +31,6 @@ public class EnemySpawner : MonoBehaviour
             }
         }
     }
-
-    #endregion
-
-    #region Private Methods
 
     private void SpawnEnemyOnLine(int lane)
     {
@@ -52,16 +47,16 @@ public class EnemySpawner : MonoBehaviour
         
         float randNum = Random.Range(0f, total);
         float sum = 0;
-        GameObject chosenEnemy = new GameObject();
+        int chosen = 0;
 
         for (int i = 0; i < EnemyProbs.Length; i++)
         {
             sum += EnemyProbs[i];
-            chosenEnemy = EnemyPrefabs[i];
+            chosen = i;
             if (randNum < sum) break;
         }
 
-        return chosenEnemy;
+        return EnemyPrefabs[chosen];
     }
     
     #endregion
