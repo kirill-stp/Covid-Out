@@ -1,13 +1,18 @@
-using TMPro;
 using UnityEngine;
 
 public class ScoreManager : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private Transform playerTransform;
-    
+    private UIManager uiManager;
+
+    private void Start()
+    {
+        uiManager = FindObjectOfType<UIManager>();
+    }
+
     void Update()
     {
-        scoreText.text = playerTransform.position.z.ToString("0");
+        uiManager.SetScore(playerTransform.position.z);
     }
+    
 }

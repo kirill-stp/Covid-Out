@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PlayerCollision : MonoBehaviour
 {
-    public static event Action OnPlayerEnemyCollision;
+    public static event Action<int> OnPlayerEnemyCollision;
 
     #region Unity Lifecycle
 
@@ -11,9 +11,10 @@ public class PlayerCollision : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            OnPlayerEnemyCollision?.Invoke();
+            var damage = other.GetComponentInParent<EnemyCollision>().damage;
+            OnPlayerEnemyCollision?.Invoke(damage);
         }
     }
-
+    
     #endregion
 }
