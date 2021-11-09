@@ -36,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
     private void Slide(int direction)
     {
         currentPos = transform.position;
-        
+
         //if object is not sliding and button is pressed
         if (currentPos.x == targetX && direction != 0)
         {
@@ -68,6 +68,21 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void FollowPressedPosition()
+    {
+        currentPos = transform.position;
+        var direction = InputManager.TouchCoords.x - transform.position.x;
+        transform.Translate(Vector3.right * direction * Xspeed * Time.fixedDeltaTime);
+        if (transform.position.x > Settings.GameConstants.PlayerSlideDistance ||
+            transform.position.x < -Settings.GameConstants.PlayerSlideDistance)
+        {
+            var fixedPos = new Vector3(Settings.GameConstants.PlayerSlideDistance * Math.Sign(transform.position.x),
+                transform.position.y, transform.position.z);
+            transform.position = fixedPos;
+        }
+
+    }
+
     #endregion
 
     #region Unity Lifecycle
@@ -77,15 +92,11 @@ public class PlayerMovement : MonoBehaviour
         GroundTile.OnAnyTileExit += IncreaseSpeed;
     }
 
-    void Update()
-    {
-        moveHorizontal = Input.GetAxis("Horizontal");
-    }
-
     void FixedUpdate()
     {
         MoveTowards();
-        Slide(Math.Sign(moveHorizontal));
+        //FollowPressedPosition();
+        Slide(Math.Sign(InputManager.XTouchScreeenCoord));
     }
 
     private void OnDisable()
