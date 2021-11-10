@@ -1,18 +1,17 @@
-using System.Linq;
+using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class EnemySpawner : MonoBehaviour
 {
     #region Variables
     
     [Header("Enemy prefabs with spawn probability")]
-    [SerializeField] private GameObject[] EnemyPrefabs;
-    [SerializeField] private float[] EnemyProbs;
+    [SerializeField] private EnemySO[] EnemySOs;
     [Space]
     [SerializeField] private Transform playerTransform;
-    [Space]
-    [SerializeField] private float spawnDelay;
-
+    
+    private EnemySO[] avaliableEnemies;
     private float currentTime;
 
     #endregion
@@ -26,7 +25,7 @@ public class EnemySpawner : MonoBehaviour
         {
             if (i != reservedLine)
             {
-                bool isSpawn = Random.Range(0f, 1f) < Settings.GameConstants.EnemySpawnProbability;
+                bool isSpawn = Random.Range(0f, 1f) < LevelStateProvider.EnemySpawnProb;
                 if (isSpawn) SpawnEnemyOnLine(i);
             }
         }
@@ -43,34 +42,64 @@ public class EnemySpawner : MonoBehaviour
 
     private GameObject ChoseEnemy()
     {
-        float total = EnemyProbs.Sum();
-        
+        float total = 0;
+        foreach (var enemy in avaliableEnemies) total += enemy.SpawnProb;
+
         float randNum = Random.Range(0f, total);
         float sum = 0;
         int chosen = 0;
 
-        for (int i = 0; i < EnemyProbs.Length; i++)
+        for (int i = 0; i < avaliableEnemies.Length; i++)
         {
-            sum += EnemyProbs[i];
+            sum += avaliableEnemies[i].SpawnProb;
             chosen = i;
             if (randNum < sum) break;
         }
 
-        return EnemyPrefabs[chosen];
+        return avaliableEnemies[chosen].Prefab;
+    }
+
+    private void UpdateAvaliableEnemies()
+    {
+        List<EnemySO> newEnemies = new List<EnemySO>();
+        foreach (var enemy in EnemySOs)
+        {
+            if (enemy.MinLvlState <= LevelStateProvider.LevelState)
+            {
+                newEnemies.Add(enemy);
+            }
+        }
+
+        avaliableEnemies = newEnemies.ToArray();
     }
     
     #endregion
 
     #region Unity Lifecycle
 
+    private void OnEnable()
+    {
+        LevelStateProvider.OnLvlStateChanged += UpdateAvaliableEnemies;
+    }
+
+    private void Awake()
+    {
+        UpdateAvaliableEnemies();
+    }
+
     private void Update()
     {
         currentTime += Time.deltaTime;
-        if (currentTime > spawnDelay)
+        if (currentTime > LevelStateProvider.EnemySpawnDelay)
         {
             currentTime = 0;
             SpawnEnemies();
         }
+    }
+
+    private void OnDisable()
+    {
+        LevelStateProvider.OnLvlStateChanged -= UpdateAvaliableEnemies;
     }
 
     #endregion

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PauseManager : SingletonMonoBehaviour<PauseManager>
+public class PauseManager : MonoBehaviour
 {
     private UIManager uiManager;
     private bool isPaused;

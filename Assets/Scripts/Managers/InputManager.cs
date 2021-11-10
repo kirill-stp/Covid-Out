@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class InputManager : SingletonMonoBehaviour<InputManager>
+public class InputManager : MonoBehaviour
 {
     public static Vector3 TouchCoords { get; private set; }
     public static float XTouchScreeenCoord { get; private set; }
