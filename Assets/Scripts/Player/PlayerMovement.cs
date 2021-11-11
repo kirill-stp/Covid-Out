@@ -5,19 +5,9 @@ public class PlayerMovement : MonoBehaviour
 {
     #region Variables
 
-    [SerializeField] private float Xspeed;
-    [SerializeField] private float Zspeed;
-    [Space]
-    [Header("Speed Waypoints")]
-    [SerializeField] private float speedWP1;
-    [SerializeField] private float speedWP2;
-    [Header("Speed change")]
-    [SerializeField] private float XSpeedChange1;
-    [SerializeField] private float XSpeedChange2;
-    [SerializeField] private float XSpeedChange3;
-    [SerializeField] private float ZSpeedChange1;
-    [SerializeField] private float ZSpeedChange2;
-    [SerializeField] private float ZSpeedChange3;
+    [SerializeField] private float zSpeed;
+
+    private float xSpeed;
 
     private float moveHorizontal;
     private float targetX;
@@ -28,9 +18,29 @@ public class PlayerMovement : MonoBehaviour
 
     #region Private Methods
 
+    private void Move()
+    {
+        MoveTowards();
+        var direction = 0;
+        if (Input.GetAxis("Horizontal") != 0f)
+        {
+            direction = Math.Sign(Input.GetAxis("Horizontal"));
+        }
+        else if (SwipeManager.swipeLeft)
+        {
+            direction = -1;
+        } 
+        else if (SwipeManager.swipeRight)
+        {
+            direction = 1;
+        }
+
+        Slide(direction);
+    }
+
     private void MoveTowards()
     {
-        transform.Translate(Vector3.forward * Zspeed * Time.fixedDeltaTime);
+        transform.Translate(Vector3.forward * zSpeed * Time.fixedDeltaTime);
     }
 
     private void Slide(int direction)
@@ -46,29 +56,16 @@ public class PlayerMovement : MonoBehaviour
         }
 
         targetPos = new Vector3(targetX, currentPos.y, currentPos.z);
-        transform.position = Vector3.MoveTowards(currentPos, targetPos, Xspeed * Time.fixedDeltaTime);
+        transform.position = Vector3.MoveTowards(currentPos, targetPos, xSpeed * Time.fixedDeltaTime);
     }
 
     private void IncreaseSpeed()
     {
-        if (Zspeed < speedWP1)
-        {
-            Zspeed += ZSpeedChange1;
-            Xspeed += XSpeedChange1;
-        } else if (speedWP1 <= Zspeed && Zspeed < speedWP2)
-        {
-            Zspeed += ZSpeedChange2;
-            Xspeed += XSpeedChange2;
-            
-        }
-        else
-        {
-            Zspeed += ZSpeedChange3;
-            Xspeed += XSpeedChange3;
-        }
+        zSpeed += LevelStateProvider.ZSpeedChange;
+        xSpeed = zSpeed * Settings.GameConstants.SpeedRateZX;
     }
 
-    private void FollowPressedPosition()
+    /*private void FollowPressedPosition()
     {
         currentPos = transform.position;
         var direction = InputManager.TouchCoords.x - transform.position.x;
@@ -81,7 +78,7 @@ public class PlayerMovement : MonoBehaviour
             transform.position = fixedPos;
         }
 
-    }
+    }*/
 
     #endregion
 
@@ -92,11 +89,17 @@ public class PlayerMovement : MonoBehaviour
         GroundTile.OnAnyTileExit += IncreaseSpeed;
     }
 
+    private void Start()
+    {
+        xSpeed = zSpeed * Settings.GameConstants.SpeedRateZX;
+    }
+
     void FixedUpdate()
     {
-        MoveTowards();
+        Move();
         //FollowPressedPosition();
-        Slide(Math.Sign(InputManager.XTouchScreeenCoord));
+        //Slide(Math.Sign(InputManager.XTouchScreeenCoord + Input.GetAxis("Horizontal")));
+        
     }
 
     private void OnDisable()

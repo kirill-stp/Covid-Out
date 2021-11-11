@@ -12,7 +12,6 @@ public class LevelStateProvider : MonoBehaviour
     
     public static int LevelState { get; private set; }
     public static float ZSpeedChange { get; private set; }
-    public static float XSpeedChange { get; private set; }
     public static float EnemySpawnProb { get; private set; }
     public static float EnemySpawnDelay { get; private set; }
 
@@ -44,7 +43,6 @@ public class LevelStateProvider : MonoBehaviour
     private void UpdateState()
     {
         ZSpeedChange = Settings.GameConstants.ZSpeedChanges[LevelState];
-        XSpeedChange = Settings.GameConstants.XSpeedChanges[LevelState];
         EnemySpawnProb = Settings.GameConstants.EnemySpawnProbs[LevelState];
         EnemySpawnDelay = Settings.GameConstants.EnemySpawnDelays[LevelState];
     }
@@ -64,7 +62,6 @@ public class LevelStateProvider : MonoBehaviour
         LevelState = GetLvlState();
         if (LevelState != lvlStateBuff)
         {
-            print($"Lvl state changed from {lvlStateBuff} to {LevelState}");
             lvlStateBuff = LevelState;
             UpdateState();
             OnLvlStateChanged?.Invoke();

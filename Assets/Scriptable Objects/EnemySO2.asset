@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9352c2332ac4a437e901bee8c86f18e0, type: 3}
   m_Name: EnemySO2
   m_EditorClassIdentifier: 
-  Prefab: {fileID: 4695348092869184658, guid: 30d3a83a29cbc43fdbb237af268f5e9c, type: 3}
-  SpawnProb: 10
-  DifficuiltyLvl: 0
+  Prefab: {fileID: 4513546252448415648, guid: 7eb9fd0756b7748d6a50833111d6fc9b, type: 3}
+  SpawnProb: 4
+  MinLvlState: 1
