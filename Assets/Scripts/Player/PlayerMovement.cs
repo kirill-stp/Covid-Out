@@ -61,8 +61,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void IncreaseSpeed()
     {
+        if (zSpeed >= Settings.GameConstants.ZSpeedCap) return;
         zSpeed += LevelStateProvider.ZSpeedChange;
         xSpeed = zSpeed * Settings.GameConstants.SpeedRateZX;
+        
     }
 
     /*private void FollowPressedPosition()
@@ -97,7 +99,6 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         Move();
-        //FollowPressedPosition();
         //Slide(Math.Sign(InputManager.XTouchScreeenCoord + Input.GetAxis("Horizontal")));
         
     }

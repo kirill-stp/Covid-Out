@@ -44,7 +44,22 @@ public class LevelStateProvider : MonoBehaviour
     {
         ZSpeedChange = Settings.GameConstants.ZSpeedChanges[LevelState];
         EnemySpawnProb = Settings.GameConstants.EnemySpawnProbs[LevelState];
-        EnemySpawnDelay = Settings.GameConstants.EnemySpawnDelays[LevelState];
+        UpdateEnemySpawnDelay();
+    }
+
+    private void UpdateEnemySpawnDelay()
+    {
+        if (LevelState == Settings.GameConstants.EnemySpawnDelays.Length - 1)
+        {
+            if (EnemySpawnDelay > Settings.GameConstants.EnemySpawnDelayCap)
+            {
+                EnemySpawnDelay -= Settings.GameConstants.EnemySpawnDelayChange;
+            }
+        }
+        else
+        {
+            EnemySpawnDelay = Settings.GameConstants.EnemySpawnDelays[LevelState];
+        }
     }
 
     #endregion
@@ -65,6 +80,11 @@ public class LevelStateProvider : MonoBehaviour
             lvlStateBuff = LevelState;
             UpdateState();
             OnLvlStateChanged?.Invoke();
+        }
+
+        if (LevelState == Settings.GameConstants.ScoreWayPoints.Length)
+        {
+            UpdateEnemySpawnDelay();
         }
     }
 

@@ -87,6 +87,11 @@ public class EnemySpawner : MonoBehaviour
         UpdateAvaliableEnemies();
     }
 
+    private void Start()
+    {
+        SpawnEnemies();
+    }
+
     private void Update()
     {
         currentTime += Time.deltaTime;

@@ -370,7 +370,7 @@ MonoBehaviour:
   - {fileID: 4713535107367366515, guid: c28cf1fc85e2f42d3b9e1ee9a0604382, type: 3}
   - {fileID: 1883882801826056780, guid: 24fd55c27855f47ae94d2ed24cf82f0a, type: 3}
   - {fileID: 4253073400028414340, guid: f6b244ce7110c47b79910bbad2b0566b, type: 3}
-  initialTileCount: 7
+  initialTileCount: 8
   RoadObjSpawnChance: 0.3
 --- !u!4 &479267683
 Transform:
