@@ -15,3 +15,4 @@ MonoBehaviour:
   Prefab: {fileID: 5212557439814938826, guid: a27cdaca25fc349b29453d11b07313c2, type: 3}
   MinLvlState: 0
   SpawnProb: 3
+  SpawnSide: 1

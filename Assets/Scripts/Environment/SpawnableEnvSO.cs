@@ -6,11 +6,12 @@ public class SpawnableEnvSO : ScriptableObject
     public GameObject Prefab;
     public int MinLvlState;
     public float SpawnProb;
-    //public SpawnSide SpawnSide;
+    public SpawnSide SpawnSide;
 }
-/*
+
 public enum SpawnSide
 {
+    Any = 0,
     Left,
     Right
-}*/
+}

@@ -8,8 +8,14 @@ public class GroundSpawner : MonoBehaviour
     [SerializeField] private GameObject groundTilePrefab;
     [SerializeField] private SpawnableEnvSO[] RoadObjectSOs;
     [SerializeField] private SpawnableEnvSO[] HouseSOs;
+    
     private SpawnableEnvSO[] avaliableRoadObjs;
+    private SpawnableEnvSO[] avaliableRoadObjsLeft;
+    private SpawnableEnvSO[] avaliableRoadObjsRight;
+    
     private SpawnableEnvSO[] avaliableHouses;
+    private SpawnableEnvSO[] avaliableHousesLeft;
+    private SpawnableEnvSO[] avaliableHousesRight;
     
     [SerializeField] private int initialTileCount;
     [SerializeField] private float RoadObjSpawnChance;
@@ -31,26 +37,25 @@ public class GroundSpawner : MonoBehaviour
         {
             if (Random.Range(0f, 1f) > RoadObjSpawnChance) continue;
             var TempSpawnPos = newTile.transform.GetChild(1 + i).transform.position;
-            var RoadObj = Instantiate(ChooseRandomPrefab(avaliableRoadObjs));
+            var RoadObjSO = i < 2 ? ChooseRandomEnvSO(avaliableRoadObjsLeft) : ChooseRandomEnvSO(avaliableRoadObjsRight);
+            var RoadObj = Instantiate(RoadObjSO.Prefab);
             RoadObj.transform.position = new Vector3(TempSpawnPos.x, RoadObj.transform.position.y, TempSpawnPos.z);
         }
         
         //Spawn Houses
         //house1
         var houseSpawnPos1 = newTile.transform.GetChild(5).transform;
-        var house1 = Instantiate(ChooseRandomPrefab(avaliableHouses));
+        var house1 = Instantiate(ChooseRandomEnvSO(avaliableHousesLeft).Prefab);
         house1.transform.position = new Vector3(
             house1.transform.position.x + houseSpawnPos1.position.x,
             house1.transform.position.y,
             houseSpawnPos1.position.z);
         //house2
         var houseSpawnPos2 = newTile.transform.GetChild(6).transform;
-        var house2 = Instantiate(ChooseRandomPrefab(avaliableHouses));
-        //Turning around
-        house2.transform.Rotate(0f,180f,0f);
+        var house2 = Instantiate(ChooseRandomEnvSO(avaliableHousesRight).Prefab);
         //Placement
         house2.transform.position = new Vector3(
-            houseSpawnPos2.position.x - house2.transform.position.x,
+            houseSpawnPos2.position.x + house2.transform.position.x,
             house2.transform.position.y,
             houseSpawnPos2.position.z);
 
@@ -59,13 +64,15 @@ public class GroundSpawner : MonoBehaviour
     private void UpdateAvaliableItems()
     {
         avaliableHouses = GetAvaliableItems(HouseSOs);
+        avaliableHousesLeft = GetAvaliableItemsBySide(avaliableHouses, SpawnSide.Left);
+        avaliableHousesRight = GetAvaliableItemsBySide(avaliableHouses, SpawnSide.Right);
+        
         avaliableRoadObjs = GetAvaliableItems(RoadObjectSOs);
-        print("Items have been updated");
-        print($"houses length:{avaliableHouses.Length}");
-        print($"road objects length:{avaliableRoadObjs.Length}");
+        avaliableRoadObjsLeft = GetAvaliableItemsBySide(avaliableRoadObjs, SpawnSide.Left);
+        avaliableRoadObjsRight = GetAvaliableItemsBySide(avaliableRoadObjs, SpawnSide.Right);
     }
 
-    private GameObject ChooseRandomPrefab(SpawnableEnvSO[] avaliableItems)
+    private SpawnableEnvSO ChooseRandomEnvSO(SpawnableEnvSO[] avaliableItems)
     {
         float total = 0;
         foreach (var item in avaliableItems) total += item.SpawnProb;
@@ -81,7 +88,7 @@ public class GroundSpawner : MonoBehaviour
             if (randNum < sum) break;
         }
 
-        return avaliableItems[chosen].Prefab;
+        return avaliableItems[chosen];
     }
     
     private SpawnableEnvSO[] GetAvaliableItems(SpawnableEnvSO[] allItems)
@@ -97,7 +104,19 @@ public class GroundSpawner : MonoBehaviour
 
         return newItems.ToArray();
     }
-    
+
+    private SpawnableEnvSO[] GetAvaliableItemsBySide(SpawnableEnvSO[] allItems, SpawnSide side)
+    {
+        List<SpawnableEnvSO> itemSide = new List<SpawnableEnvSO>();
+        foreach (var item in allItems)
+        {
+            if (item.SpawnSide == side || item.SpawnSide == SpawnSide.Any)
+            {
+                itemSide.Add(item);
+            }   
+        }
+        return itemSide.ToArray();
+    }
     #endregion
 
     #region Unity Lifecycle

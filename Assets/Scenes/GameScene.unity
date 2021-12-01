@@ -361,11 +361,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundTilePrefab: {fileID: 724985734844892142, guid: 4c2ef9cf95119416d9f0f0a6b531420b, type: 3}
   RoadObjectSOs:
-  - {fileID: 11400000, guid: ffee085f7846f4d079ea1650704cf932, type: 2}
   - {fileID: 11400000, guid: fca28eeea315a41ffb02a91b56b45021, type: 2}
+  - {fileID: 11400000, guid: 178043f5a26ef4e6587e90c62ebc1cfa, type: 2}
+  - {fileID: 11400000, guid: ffee085f7846f4d079ea1650704cf932, type: 2}
   - {fileID: 11400000, guid: e6b8cdb2ee6df47d4bc48e0fb143f401, type: 2}
   HouseSOs:
   - {fileID: 11400000, guid: b3cfbac3d55cd496582d23cf05159945, type: 2}
+  - {fileID: 11400000, guid: 38ae45972cc444aaca8a188c790e128c, type: 2}
   initialTileCount: 15
   RoadObjSpawnChance: 0.3
 --- !u!4 &479267683
