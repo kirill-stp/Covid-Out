@@ -12,15 +12,19 @@ public class MaskManager : MonoBehaviour
 
     #region Private Methods
 
-    private void UpdateMaskScore()
-    {
-        uiManager.SetMaskScore(maskCount);
-    }
-
     private void RemoveMasks(int amount)
     {
         maskCount -= amount;
         UpdateMaskScore();
+        if (maskCount < 0)
+        {
+            GameStateManager.EndGame();
+        }
+    }
+
+    private void UpdateMaskScore()
+    {
+        uiManager.SetMaskScore(maskCount);
     }
 
     #endregion

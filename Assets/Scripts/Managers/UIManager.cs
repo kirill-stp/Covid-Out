@@ -8,8 +8,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private TextMeshProUGUI maskScoreText;
     [SerializeField] private Canvas pauseViewPrefab;
+    [SerializeField] private Canvas gameOverViewPrefab;
 
     private Canvas pauseView;
+    public Canvas gameOverView;
     
     #endregion
 
@@ -33,6 +35,16 @@ public class UIManager : MonoBehaviour
     public void DeletePauseView()
     {
         Destroy(pauseView.gameObject);
+    }
+
+    public void CreateGameOverView()
+    {
+        gameOverView = Instantiate(gameOverViewPrefab);
+    }
+
+    public void DeleteGameOverView()
+    {
+        Destroy(gameOverView.gameObject);
     }
 
     #endregion

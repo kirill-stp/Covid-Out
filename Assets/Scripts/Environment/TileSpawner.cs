@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GroundSpawner : MonoBehaviour
+public class TileSpawner : MonoBehaviour
 {
     #region Variables
 
@@ -28,21 +28,28 @@ public class GroundSpawner : MonoBehaviour
 
     private void SpawnTile()
     {
-        //SpawnGround
+        //SpawnGroundTile
         var newTile = Instantiate(groundTilePrefab, spawnPosition.position, Quaternion.identity);
         spawnPosition = newTile.transform.GetChild(0).transform;
 
-        //Spawn Road Objects
+        SpawnRoadObjects(newTile);
+        SpawnHouses(newTile);
+    }
+
+    private void SpawnRoadObjects(GameObject newTile)
+    {
         for (int i = 0; i < 4; i++)
         {
             if (Random.Range(0f, 1f) > RoadObjSpawnChance) continue;
-            var TempSpawnPos = newTile.transform.GetChild(1 + i).transform.position;
-            var RoadObjSO = i < 2 ? ChooseRandomEnvSO(avaliableRoadObjsLeft) : ChooseRandomEnvSO(avaliableRoadObjsRight);
-            var RoadObj = Instantiate(RoadObjSO.Prefab);
-            RoadObj.transform.position = new Vector3(TempSpawnPos.x, RoadObj.transform.position.y, TempSpawnPos.z);
+            var tempSpawnPos = newTile.transform.GetChild(1 + i).transform.position;
+            var roadObjSo = i < 2 ? ChooseRandomEnvSO(avaliableRoadObjsLeft) : ChooseRandomEnvSO(avaliableRoadObjsRight);
+            var roadObj = Instantiate(roadObjSo.Prefab);
+            roadObj.transform.position = new Vector3(tempSpawnPos.x, roadObj.transform.position.y, tempSpawnPos.z);
         }
-        
-        //Spawn Houses
+    }
+
+    private void SpawnHouses(GameObject newTile)
+    {
         //house1
         var houseSpawnPos1 = newTile.transform.GetChild(5).transform;
         var house1 = Instantiate(ChooseRandomEnvSO(avaliableHousesLeft).Prefab);
@@ -53,12 +60,10 @@ public class GroundSpawner : MonoBehaviour
         //house2
         var houseSpawnPos2 = newTile.transform.GetChild(6).transform;
         var house2 = Instantiate(ChooseRandomEnvSO(avaliableHousesRight).Prefab);
-        //Placement
         house2.transform.position = new Vector3(
             houseSpawnPos2.position.x + house2.transform.position.x,
             house2.transform.position.y,
             houseSpawnPos2.position.z);
-
     }
     
     private void UpdateAvaliableItems()
