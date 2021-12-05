@@ -5,6 +5,7 @@ public class MaskManager : MonoBehaviour
     #region Variables
 
     [SerializeField] private int maxMaskCount;
+    [SerializeField] private GameStateManager gameStateManager;
     private int maskCount;
     private UIManager uiManager;
 
@@ -18,7 +19,9 @@ public class MaskManager : MonoBehaviour
         UpdateMaskScore();
         if (maskCount < 0)
         {
-            GameStateManager.EndGame();
+            gameStateManager.EndGame();
+            maskCount = 0;
+            UpdateMaskScore();
         }
     }
 

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class TileSpawner : MonoBehaviour
@@ -101,7 +102,7 @@ public class TileSpawner : MonoBehaviour
         List<SpawnableEnvSO> newItems = new List<SpawnableEnvSO>();
         foreach (var item in allItems)
         {
-            if (item.MinLvlState <= LevelStateProvider.LevelState)
+            if (item.LvlStates.Contains(LevelStateProvider.LevelState))
             {
                 newItems.Add(item);
             }

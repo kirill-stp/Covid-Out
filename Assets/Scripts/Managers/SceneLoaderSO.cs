@@ -13,4 +13,9 @@ public class SceneLoaderSO : ScriptableObject
     {
         SceneManager.LoadScene(0);
     }
+
+    public void RestartCurrentScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 }

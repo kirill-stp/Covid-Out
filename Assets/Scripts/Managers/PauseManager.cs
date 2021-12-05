@@ -5,30 +5,30 @@ public class PauseManager : MonoBehaviour
     private UIManager uiManager;
     private bool isPaused;
 
-    public void TogglePause()
+    public void TogglePause(bool isUi = false)
     {
         if (isPaused)
         {
-            ResumeGame();
+            ResumeGame(isUi);
         }
         else
         {
-            PauseGame();
+            PauseGame(isUi);
         }
 
         isPaused = !isPaused;
     }
     
-    private void PauseGame()
+    private void PauseGame(bool isUi = false)
     {
         Time.timeScale = 0f;
-        uiManager.CreatePauseView();
+        if (isUi) uiManager.CreatePauseView();
     }
 
-    private void ResumeGame()
+    private void ResumeGame(bool isUi = false)
     {
         Time.timeScale = 1f;
-        uiManager.DeletePauseView();
+        if (isUi) uiManager.DeletePauseView();
     }
 
     #region Unity lifecycle

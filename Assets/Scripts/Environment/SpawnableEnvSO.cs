@@ -4,7 +4,7 @@ using UnityEngine;
 public class SpawnableEnvSO : ScriptableObject
 {
     public GameObject Prefab;
-    public int MinLvlState;
+    public int[] LvlStates;
     public float SpawnProb;
     public SpawnSide SpawnSide;
 }

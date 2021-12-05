@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: RoadObj2
   m_EditorClassIdentifier: 
   Prefab: {fileID: 6555233132337468793, guid: 58ee488eb74d6460ca12e955f98df382, type: 3}
-  MinLvlState: 0
+  LvlStates: 000000000100000002000000
   SpawnProb: 3
   SpawnSide: 2
