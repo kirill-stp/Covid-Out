@@ -32,6 +32,17 @@ public class MaskManager : MonoBehaviour
 
     #endregion
 
+    #region Public Methods
+
+    public void AddMask(int masksToAdd = 1)
+    {
+        maskCount += masksToAdd;
+        if (maskCount > maxMaskCount) maskCount = maxMaskCount;
+        UpdateMaskScore();
+    }
+
+    #endregion
+
     #region Unity lifecycle
 
     private void OnEnable()
