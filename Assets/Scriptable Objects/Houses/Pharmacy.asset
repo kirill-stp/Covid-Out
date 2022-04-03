@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d4cad966152048b5b89dc017372f6f6, type: 3}
   m_Name: Pharmacy
   m_EditorClassIdentifier: 
-  Prefab: {fileID: 0}
-  LvlStates: 
-  SpawnProb: 0
-  SpawnSide: 0
+  Prefab: {fileID: 4253073400028414340, guid: f6b244ce7110c47b79910bbad2b0566b, type: 3}
+  LvlStates: 000000000100000002000000
+  SpawnProb: 1
+  SpawnSide: 2

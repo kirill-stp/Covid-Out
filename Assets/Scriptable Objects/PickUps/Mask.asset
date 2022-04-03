@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff09dd9484eae4bc7bd86afa057385b4, type: 3}
   m_Name: Mask
   m_EditorClassIdentifier: 
-  Prefab: {fileID: 0}
+  Prefab: {fileID: 1662678056828018044, guid: 405ce1b50096040c1bacba39828b20a1, type: 3}
   LvlStates: 
-  SpawnProb: 0
+  SpawnProb: 1

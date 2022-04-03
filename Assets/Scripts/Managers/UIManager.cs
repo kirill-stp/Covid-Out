@@ -47,5 +47,10 @@ public class UIManager : MonoBehaviour
         Destroy(gameOverView.gameObject);
     }
 
+    public void StartTimer(float seconds)
+    {
+        
+    }
+
     #endregion
 }

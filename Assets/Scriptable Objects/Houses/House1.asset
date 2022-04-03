@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Prefab: {fileID: 8182943287311846802, guid: c7d067554e6b549db9b2f45b4a64adc2, type: 3}
   LvlStates: 000000000100000002000000
-  SpawnProb: 1
+  SpawnProb: 10
   SpawnSide: 1

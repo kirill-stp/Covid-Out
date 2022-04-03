@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -14,6 +13,9 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector3 targetPos;
     private Vector3 currentPos;
+
+    private int direction;
+    
     #endregion
 
     #region Private Methods
@@ -21,21 +23,7 @@ public class PlayerMovement : MonoBehaviour
     private void Move()
     {
         MoveTowards();
-        var direction = 0;
-        if (Input.GetAxis("Horizontal") != 0f)
-        {
-            direction = Math.Sign(Input.GetAxis("Horizontal"));
-        }
-        else if (SwipeManager.swipeLeft)
-        {
-            direction = -1;
-        } 
-        else if (SwipeManager.swipeRight)
-        {
-            direction = 1;
-        }
-
-        Slide(direction);
+        Slide();
     }
 
     private void MoveTowards()
@@ -43,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
         transform.Translate(Vector3.forward * zSpeed * Time.fixedDeltaTime);
     }
 
-    private void Slide(int direction)
+    private void Slide()
     {
         currentPos = transform.position;
 
@@ -96,11 +84,32 @@ public class PlayerMovement : MonoBehaviour
         xSpeed = zSpeed * Settings.GameConstants.SpeedRateZX;
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            direction = 1;
+        }
+        else if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            direction = -1;
+        }
+        else if (SwipeManager.swipeLeft)
+        {
+            direction = -1;
+        } 
+        else if (SwipeManager.swipeRight)
+        {
+            direction = 1;
+        }
+    }
+
     void FixedUpdate()
     {
         Move();
+        direction = 0;
         //Slide(Math.Sign(InputManager.XTouchScreeenCoord + Input.GetAxis("Horizontal")));
-        
+
     }
 
     private void OnDisable()

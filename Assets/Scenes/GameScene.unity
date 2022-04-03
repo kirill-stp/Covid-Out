@@ -416,6 +416,7 @@ MonoBehaviour:
   HouseSOs:
   - {fileID: 11400000, guid: b3cfbac3d55cd496582d23cf05159945, type: 2}
   - {fileID: 11400000, guid: 38ae45972cc444aaca8a188c790e128c, type: 2}
+  - {fileID: 11400000, guid: 8d306a58eef654473a55f5cead44b80d, type: 2}
   initialTileCount: 15
   RoadObjSpawnChance: 0.3
 --- !u!4 &479267683

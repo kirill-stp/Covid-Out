@@ -141,6 +141,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PickUps:
   - {fileID: 11400000, guid: f8c1341a8ee614ad7920cbc2b02fd9ba, type: 2}
+  - {fileID: 11400000, guid: 22972b07dd3934d1288f2550506ec462, type: 2}
 --- !u!1 &6104563925130085388
 GameObject:
   m_ObjectHideFlags: 0

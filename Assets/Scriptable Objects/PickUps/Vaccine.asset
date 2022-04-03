@@ -9,10 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d4cad966152048b5b89dc017372f6f6, type: 3}
-  m_Name: House2
+  m_Script: {fileID: 11500000, guid: ff09dd9484eae4bc7bd86afa057385b4, type: 3}
+  m_Name: Vaccine
   m_EditorClassIdentifier: 
-  Prefab: {fileID: 3679312407852244162, guid: 838f1fb40103e439586a60afea7bb5c8, type: 3}
-  LvlStates: 000000000100000002000000
-  SpawnProb: 10
-  SpawnSide: 2
+  Prefab: {fileID: 4455470559363950629, guid: 0455b5cf5f205479686f2eca4f4d152d, type: 3}
+  LvlStates: 
+  SpawnProb: 5

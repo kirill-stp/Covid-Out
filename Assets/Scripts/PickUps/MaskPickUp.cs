@@ -1,22 +1,11 @@
 using UnityEngine;
 
-public class MaskPickUp : MonoBehaviour
+public class MaskPickUp : PickUp
 {
-    [SerializeField] private GameObject pickupParticlePrefab;
     [SerializeField] private int maskAmount;
 
-    #region Unity lifecycle
-    
-    private void OnTriggerEnter(Collider other)
+    protected override void PickUpEffect(GameObject player)
     {
-        if (other.gameObject.CompareTag(Settings.Tags.Player))
-        {
-            FindObjectOfType<MaskManager>().AddMask(maskAmount);
-            var particles = Instantiate(pickupParticlePrefab, transform.position, Quaternion.identity);
-            Destroy(particles,1f);
-            Destroy(gameObject);
-        }
+        FindObjectOfType<MaskManager>().AddMask(maskAmount);
     }
-
-    #endregion
 }
