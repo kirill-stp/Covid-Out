@@ -5,6 +5,9 @@ using UnityEngine;
 public class PlayerCollision : MonoBehaviour
 {
     public static event Action<int> OnPlayerEnemyCollision;
+
+    private UIManager uiManager;
+    
     private bool isImmune = false;
     private IEnumerator currentCoroutine;
 
@@ -26,11 +29,17 @@ public class PlayerCollision : MonoBehaviour
         if (isImmune) StopCoroutine(currentCoroutine);
         currentCoroutine = ImmuneCoroutine(seconds);
         StartCoroutine(currentCoroutine);
+        uiManager.StartTimer(seconds);
     }
 
     #endregion
 
     #region Unity Lifecycle
+
+    private void Start()
+    {
+        uiManager = FindObjectOfType<UIManager>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {

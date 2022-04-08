@@ -9,6 +9,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI maskScoreText;
     [SerializeField] private Canvas pauseViewPrefab;
     [SerializeField] private Canvas gameOverViewPrefab;
+    [SerializeField] private Timer timer;
+    
 
     private Canvas pauseView;
     public Canvas gameOverView;
@@ -16,6 +18,11 @@ public class UIManager : MonoBehaviour
     #endregion
 
     #region Public Methods
+
+    public void StartTimer(float time)
+    {
+        timer.startTimer(time);
+    }
 
     public void SetScore(float scoreValue)
     {
@@ -45,11 +52,6 @@ public class UIManager : MonoBehaviour
     public void DeleteGameOverView()
     {
         Destroy(gameOverView.gameObject);
-    }
-
-    public void StartTimer(float seconds)
-    {
-        
     }
 
     #endregion
